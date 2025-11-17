@@ -6,12 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transfer extends Model
 {
-    /**
-     * Relaciones cargadas por defecto (eager loading)
-     * Evita N+1 queries en listados de transferencias
-     */
-    protected $with = ['wherehouseFrom', 'wherehouseTo', 'userSend', 'userRecive'];
-
     protected $fillable = [
         'transfer_number',
         'wherehouse_from',

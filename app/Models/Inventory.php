@@ -14,12 +14,6 @@ class Inventory extends Model
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * Relaciones cargadas por defecto (eager loading)
-     * Evita N+1 queries en listados de inventario
-     */
-    protected $with = ['product', 'branch'];
-
     protected $fillable = [
         'product_id',
         'branch_id',

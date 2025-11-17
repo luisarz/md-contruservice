@@ -50,6 +50,8 @@ class PurchaseExporter implements FromCollection,WithHeadings
 
     public function collection(): Collection
     {
+        set_time_limit(0);
+        ini_set('memory_limit', '2048M');
         return Purchase::select(
             'id',
             'purchase_date as fecha',

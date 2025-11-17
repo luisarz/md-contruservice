@@ -79,7 +79,7 @@ class DTEController extends Controller
 
     function facturaJson($idVenta): array|jsonResponse
     {
-        $factura = Sale::with('wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = trim($factura->salescondition->code);
@@ -159,7 +159,7 @@ class DTEController extends Controller
 
     function CCFJson($idVenta): array|JsonResponse
     {
-        $factura = Sale::with('wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::withDteRelations()->find($idVenta);
 
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
@@ -245,7 +245,7 @@ class DTEController extends Controller
 
     function CreditNotesJSON($idVenta): array|JsonResponse
     {
-        $factura = Sale::with('saleRelated', 'wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::with('saleRelated')->withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = 1;//trim($factura->salescondition->code);
@@ -335,7 +335,7 @@ class DTEController extends Controller
 
     function DebitNotesJSON($idVenta): array|JsonResponse
     {
-        $factura = Sale::with('saleRelated', 'wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::with('saleRelated')->withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = 1;//trim($factura->salescondition->code);
@@ -425,7 +425,7 @@ class DTEController extends Controller
 
     function RemisionNotesJSON($idVenta): array|JsonResponse
     {
-        $factura = Sale::with('saleRelated', 'wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::with('saleRelated')->withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = 1;//trim($factura->salescondition->code);
@@ -515,7 +515,7 @@ class DTEController extends Controller
 
     function ExportacionJson($idVenta): array|jsonResponse
     {
-        $factura = Sale::with('wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = 1;//trim($factura->salescondition->code);
@@ -633,7 +633,7 @@ class DTEController extends Controller
 
     function sujetoExcluidoJson($idVenta): array|jsonResponse
     {
-        $factura = Sale::with('wherehouse.stablishmenttype', 'documenttype', 'seller', 'customer', 'customer.economicactivity', 'customer.departamento', 'customer.documenttypecustomer', 'salescondition', 'paymentmethod', 'saleDetails', 'saleDetails.inventory.product.unitmeasurement')->find($idVenta);
+        $factura = Sale::withDteRelations()->find($idVenta);
 
         $establishmentType = trim($factura->wherehouse->stablishmenttype->code);
         $conditionCode = (int)trim($factura->salescondition->code ?? 1);
@@ -913,7 +913,7 @@ class DTEController extends Controller
                         'inventory.product',
                         'inventory.inventoriesGrouped.inventoryChild.product'
                     ])
-                    ->get();
+                    ->lazy();
 
                 foreach ($salesItem as $item) {
                     try {

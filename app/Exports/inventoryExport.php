@@ -60,6 +60,7 @@ class inventoryExport implements FromCollection, WithColumnFormatting, WithEvent
     public function collection(): Collection
     {
         set_time_limit(0);
+        ini_set('memory_limit', '2048M');
 
         // 📌 Traer datos agrupados para TODOS los inventarios
 

@@ -15,12 +15,6 @@ class Purchase extends Model
 {
     use SoftDeletes;
 
-    /**
-     * Relaciones cargadas por defecto (eager loading)
-     * Evita N+1 queries en listados de compras
-     */
-    protected $with = ['provider', 'employee', 'wherehouse'];
-
     protected $fillable = [
         'provider_id',
         'employee_id',

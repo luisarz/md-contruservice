@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class SaleItem extends Model
 {
-    /**
-     * Relaciones cargadas por defecto (eager loading)
-     * Evita N+1 queries al acceder inventory.product en DTEs y listados
-     */
-    protected $with = ['inventory.product'];
-
     protected $fillable = [
         'sale_id',
         'inventory_id',

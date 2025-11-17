@@ -59,6 +59,7 @@ class SalesExportFac implements FromCollection, WithHeadings, WithEvents, WithCo
     public function collection(): Collection
     {
         set_time_limit(0);
+        ini_set('memory_limit', '2048M');
         $sales = Sale::select(
             'id',
             'operation_date as fecha',
