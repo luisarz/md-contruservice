@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:filamentphp.com)",
+      "WebSearch",
+      "Bash(php artisan:*)",
+      "Bash(npm run build:*)",
+      "Bash(cat:*)",
+      "Bash(git add:*)",
+      "Bash(test:*)",
+      "Bash(chmod:*)",
+      "Bash(composer dump-autoload:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git rm:*)",
+      "Bash(composer show:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
