@@ -14,6 +14,20 @@ class ListProducts extends ListRecords
 {
     protected static string $resource = ProductResource::class;
 
+    /**
+     * Optimización: Eager loading de relaciones
+     * Evita N+1 queries al mostrar columnas con relaciones en la tabla
+     */
+    protected function getTableQuery(): ?Builder
+    {
+        return parent::getTableQuery()
+            ->with([
+                'unitmeasurement:id,description',
+                'category:id,name',
+                'marca:id,nombre'
+            ]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

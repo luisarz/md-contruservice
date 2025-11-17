@@ -24,6 +24,24 @@ class ListSales extends ListRecords
 {
     protected static string $resource = SaleResource::class;
 
+    /**
+     * Optimización: Eager loading de relaciones
+     * Evita N+1 queries al mostrar columnas con relaciones en la tabla
+     */
+    protected function getTableQuery(): ?Builder
+    {
+        return parent::getTableQuery()
+            ->with([
+                'wherehouse:id,name',
+                'documenttype:id,name,code',
+                'billingModel',
+                'transmisionType',
+                'seller:id,name,lastname',
+                'customer:id,name,last_name',
+                'salescondition:id,name'
+            ]);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

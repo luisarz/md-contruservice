@@ -138,14 +138,8 @@ class AdminPanelProvider extends PanelProvider
 
             })
             ->renderHook(PanelsRenderHook::GLOBAL_SEARCH_BEFORE, function () {
-                $whereHouse = auth()->user()->employee->branch_id ?? null;
-                $DTETransmisionType = Contingency::where('warehouse_id', $whereHouse)->where('is_close', 0)->first();
-                $labelTransmisionType = "Previo Normal";
-                $labelTransmisionTypeBorderColor = " #52b01e ";
-                if ($DTETransmisionType) {//Previo Normal)
-                    $labelTransmisionType = " Deferido Contingencia ";
-                    $labelTransmisionTypeBorderColor = " red ";
-                }
+                // Optimizado: usa cache en lugar de queries en cada request
+                $status = \App\Services\CacheService::getContingencyStatus();
 
                 return Blade::render(
                     '<div style="border: solid {{ $borderColor }} 1px; border-radius: 10px; padding: 1px; display: flex; align-items: center; gap: 10px;">
@@ -153,12 +147,10 @@ class AdminPanelProvider extends PanelProvider
                             <div style="border: solid {{ $borderColor }} 1px; background-color: {{$borderColor}}; border-radius: 10px; padding: 5px;" >{{ $text }}</div>
                     </div>',
                     [
-                        'text' => $labelTransmisionType,
-                        'borderColor' => $labelTransmisionTypeBorderColor, // Asegúrate de que esta variable esté definida.
+                        'text' => $status['label'],
+                        'borderColor' => $status['color'],
                     ]
                 );
-
-
             })
             ->navigationGroups([
                 NavigationGroup::make()
