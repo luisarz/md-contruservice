@@ -42,7 +42,7 @@ class AdminPanelProvider extends PanelProvider
 
         return $panel
             ->brandLogo(fn() => view('logo'))
-            ->brandLogoHeight('2.5rem')
+            ->brandLogoHeight('4rem')
             ->default()
             ->font('Poppins')
             ->colors([
