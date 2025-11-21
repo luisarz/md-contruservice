@@ -1021,6 +1021,9 @@ class DTEController extends Controller
     public
     function printDTETicket($codGeneracion)
     {
+        // Aumentar límite de memoria para generación de PDF
+        ini_set('memory_limit', '256M');
+
         // Buscar en BD en lugar de archivo
         $historyDte = HistoryDte::where('codigoGeneracion', $codGeneracion)->first();
 
@@ -1077,9 +1080,15 @@ class DTEController extends Controller
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => !$isLocalhost,
+                'debugKeepTemp' => false,
+                'debugCss' => false,
+                'debugLayout' => false,
             ]);
 
         $pdf->set_paper(array(0, 0, 250, 1000)); // Custom paper size
+
+        // Liberar memoria antes de generar PDF
+        unset($historyDte, $DTE, $datos, $logoBase64, $dteFileService);
 
         return $pdf->stream("{$codGeneracion}.pdf");
     }
@@ -1087,6 +1096,9 @@ class DTEController extends Controller
     public
     function printDTEPdf($codGeneracion)
     {
+        // Aumentar límite de memoria para generación de PDF
+        ini_set('memory_limit', '256M');
+
         // Buscar en BD en lugar de archivo
         $historyDte = HistoryDte::where('codigoGeneracion', $codGeneracion)->first();
 
@@ -1145,11 +1157,13 @@ class DTEController extends Controller
             ->setOptions([
                 'isHtml5ParserEnabled' => true,
                 'isRemoteEnabled' => !$isLocalhost,
+                'debugKeepTemp' => false,
+                'debugCss' => false,
+                'debugLayout' => false,
             ]);
 
-        // YA NO GUARDAMOS EL PDF - se genera on-demand
-        // $pathPage = storage_path("app/public/DTEs/{$codGeneracion}.pdf");
-        // $pdf->save($pathPage);
+        // Liberar memoria antes de generar PDF
+        unset($historyDte, $DTE, $datos, $logoBase64, $dteFileService);
 
         return $pdf->stream("{$codGeneracion}.pdf");
     }

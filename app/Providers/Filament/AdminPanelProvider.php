@@ -155,31 +155,31 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label('Almacén')
-                    ->icon('heroicon-o-building-office')
+                    ->icon('heroicon-o-building-storefront')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Inventario')
-                    ->icon('heroicon-o-circle-stack')
+                    ->icon('heroicon-o-cube')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Facturación')
-                    ->icon('heroicon-o-shopping-cart')
+                    ->icon('heroicon-o-document-text')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Caja Chica')
-                    ->icon('heroicon-o-currency-dollar')
+                    ->icon('heroicon-o-wallet')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Contabilidad')
-                    ->icon('heroicon-o-building-office')
+                    ->icon('heroicon-o-calculator')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Libro Bancos')
-                    ->icon('heroicon-o-banknotes')
+                    ->icon('heroicon-o-building-library')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Recursos Humanos')
-                    ->icon('heroicon-o-academic-cap')
+                    ->icon('heroicon-o-user-group')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Configuración')
@@ -187,7 +187,7 @@ class AdminPanelProvider extends PanelProvider
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Catálogos Hacienda')
-                    ->icon('heroicon-o-magnifying-glass-circle')
+                    ->icon('heroicon-o-clipboard-document-list')
                     ->collapsed(),
                 NavigationGroup::make()
                     ->label('Seguridad')
