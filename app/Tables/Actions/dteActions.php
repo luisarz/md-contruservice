@@ -33,9 +33,6 @@ class dteActions
 //                    ->required(),
 //            ])
             ->action(function ($record, array $data) {
-
-
-//                if ($data['confirmacion'] === 'si') {
                 $dteController = new DTEController();
                 $resultado = $dteController->generarDTE($record->id);
                 if ($resultado['estado'] === 'EXITO') {
@@ -43,10 +40,26 @@ class dteActions
                         ->title('Envío Exitoso')
                         ->success()
                         ->send();
-//                    if ($data['confirmacion'] === 'si') {
-                    self::imprimirDTE()->action($record);
-                    self::enviarEmailDTE()->action($record);
-//                    }
+
+                    // Enviar email directamente usando el controlador
+                    try {
+                        $responseSendEmail = new SenEmailDTEController();
+                        $response = $responseSendEmail->SenEmailDTEController($record->id);
+                        $responseData = $response->getData(true);
+                        if ($responseData['status']) {
+                            Notification::make()
+                                ->title('Email Enviado')
+                                ->body($responseData['body'] ?? 'Correo enviado exitosamente')
+                                ->success()
+                                ->send();
+                        }
+                    } catch (\Exception $e) {
+                        Notification::make()
+                            ->title('Error al enviar email')
+                            ->body($e->getMessage())
+                            ->warning()
+                            ->send();
+                    }
                 } else {
                     Notification::make()
                         ->title($resultado['estado'])
@@ -54,12 +67,6 @@ class dteActions
                         ->body($resultado["mensaje"])
                         ->send();
                 }
-//                } else {
-//                    PageAlert::make()
-//                        ->title('Se canceló el envío')
-//                        ->warning()
-//                        ->send();
-//                }
             });
     }
 
